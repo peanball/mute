@@ -28,8 +28,6 @@ func getDefaultDeviceID(type: DeviceType) -> AudioObjectID? {
     var devices = [AudioObjectID](repeating: 0, count: Int(numDevices))
     
     AudioObjectGetPropertyData(systemObject, &address, 0, nil, &size, &devices)
-    print("size: \(size), num: \(numDevices), devices: \(devices)")
-    
     return devices[0]
 }
 
@@ -79,7 +77,7 @@ func isMuted(device: AudioObjectID, type: DeviceType) -> Bool {
     
     AudioObjectGetPropertyData(device, &propertyAddress, 0, nil, &propertySize, &muted)
     
-    print("Getting current mute: \(muted == 1)")
+//    print("Getting current mute: \(muted == 1)")
     return muted == 1
 }
 
@@ -101,7 +99,7 @@ func setMute(device: AudioObjectID, type: DeviceType, mute: MuteMode) {
         mElement: kAudioObjectPropertyElementMain
     )
     
-    print("Setting mute on device \(device): \(muted == 1), \(muted)")
+//    print("Setting mute on device \(device): \(muted == 1), \(muted)")
     let err = AudioObjectSetPropertyData(device, &propertyAddress, 0, nil, propertySize, &muted)
     if(err != noErr) {
         let error = NSError(domain: NSOSStatusErrorDomain, code: Int(err))

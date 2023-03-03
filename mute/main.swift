@@ -43,14 +43,13 @@ struct MuteOptions: ParsableArguments {
 // parse a single `ParsableArguments` type from command-line arguments.
 let options = MuteOptions.parseOrExit()
 
-if options.verbose {
-    print("Verbose!")
-}
+let deviceId = getDefaultDeviceID(type: options.type)!
 
-let deviceId = getDefaultDeviceID(type: options.type)
+setMute(device: deviceId, type: options.type, mute: options.mute)
+
+let muted = isMuted(device: deviceId, type: options.type)
+
+print("device: \(deviceId), name: \(getDeviceName(device: deviceId)), type: \(options.type), mode: \(options.mute), muted: \(muted)")
 
 
-print("device: \(deviceId!), name: \(getDeviceName(device: deviceId!)), type: \(options.type), mode: \(options.mute)")
-
-setMute(device: deviceId!, type: options.type, mute: options.mute)
 
